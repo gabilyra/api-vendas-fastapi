@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from app.database import get_db
 from app.models.cliente import Cliente
-from app.schemas.cliente import ClienteCreate, ClienteResponse
+from app.schemas.cliente import ClienteCreate, ClienteResponse, ClienteUpdate
 
 router = APIRouter(prefix="/clientes", tags=["Clientes"])
 
@@ -42,13 +42,13 @@ def buscar_cliente(cliente_id: int, db: Session = Depends(get_db)):
     return cliente
 
 @router.put("/{cliente_id}", response_model=ClienteResponse)
-def atualizar_cliente(cliente_id: int, cliente_data: ClienteCreate, db: Session = Depends(get_db)):
+def atualizar_cliente(cliente_id: int, cliente_data: ClienteUpdate, db: Session = Depends(get_db)):
     cliente = db.query(Cliente).filter(Cliente.id == cliente_id).first()
 
     if not cliente:
         raise HTTPException(status_code=404, detail="Cliente não encontrado")
 
-    for key, value in cliente_data.model_dump().items():
+    for key, value in cliente_data.model_dump(exclude_unset=True).items():
         setattr(cliente, key, value)
 
     db.commit()

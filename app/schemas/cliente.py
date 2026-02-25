@@ -13,6 +13,12 @@ class ClienteCreate(ClienteBase):
     pass
 
 
+class ClienteUpdate(BaseModel):
+    nome: Optional[str] = None
+    email: Optional[EmailStr] = None
+    telefone: Optional[str] = None
+
+
 class ClienteResponse(ClienteBase):
     id: int
     created_at: datetime
