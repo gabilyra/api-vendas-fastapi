@@ -1,15 +1,10 @@
-#from fastapi import FastAPI
-
-#app = FastAPI()
-
-#@app.get("/")
-#def read_root():
-#return {"message": "API funcionando!"}
-
 from fastapi import FastAPI
-from app.database.database import engine
+from app.database import engine
+from app.routers import cliente
 
 app = FastAPI()
+
+app.include_router(cliente.router)
 
 @app.get("/")
 def read_root():

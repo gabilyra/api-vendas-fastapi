@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, ForeignKey, Numeric
 from sqlalchemy.orm import relationship
-from app.database.database import Base
+from app.database import Base
 
 
 class ItemVenda(Base):
