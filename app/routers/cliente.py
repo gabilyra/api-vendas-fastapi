@@ -8,6 +8,7 @@ from app.schemas.cliente import ClienteCreate, ClienteResponse, ClienteUpdate
 
 router = APIRouter(prefix="/clientes", tags=["Clientes"])
 
+# Criar cliente
 @router.post("/", response_model=ClienteResponse)
 def criar_cliente(cliente: ClienteCreate, db: Session = Depends(get_db)):
     novo_cliente = Cliente(**cliente.model_dump())
@@ -16,6 +17,7 @@ def criar_cliente(cliente: ClienteCreate, db: Session = Depends(get_db)):
     db.refresh(novo_cliente)
     return novo_cliente
 
+# Listar clientes
 @router.get("/", response_model=List[ClienteResponse])
 def listar_clientes(
     nome: Optional[str] = None,
@@ -32,6 +34,7 @@ def listar_clientes(
 
     return query.all()
 
+# Buscar cliente
 @router.get("/{cliente_id}", response_model=ClienteResponse)
 def buscar_cliente(cliente_id: int, db: Session = Depends(get_db)):
     cliente = db.query(Cliente).filter(Cliente.id == cliente_id).first()
@@ -41,6 +44,7 @@ def buscar_cliente(cliente_id: int, db: Session = Depends(get_db)):
 
     return cliente
 
+# Atualizar cliente
 @router.put("/{cliente_id}", response_model=ClienteResponse)
 def atualizar_cliente(cliente_id: int, cliente_data: ClienteUpdate, db: Session = Depends(get_db)):
     cliente = db.query(Cliente).filter(Cliente.id == cliente_id).first()
@@ -55,6 +59,7 @@ def atualizar_cliente(cliente_id: int, cliente_data: ClienteUpdate, db: Session 
     db.refresh(cliente)
     return cliente
 
+# Deletar cliente
 @router.delete("/{cliente_id}")
 def deletar_cliente(cliente_id: int, db: Session = Depends(get_db)):
     cliente = db.query(Cliente).filter(Cliente.id == cliente_id).first()
