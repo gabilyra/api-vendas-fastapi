@@ -11,6 +11,11 @@ class Cliente(Base):
     nome = Column(String(100), nullable=False)
     email = Column(String(100), unique=True, nullable=False)
     telefone = Column(String(20))
+    rua = Column(String(150), nullable=True)
+    numero = Column(String(20), nullable=True)
+    cidade = Column(String(100), nullable=True)
+    estado = Column(String(50), nullable=True)
+    cep = Column(String(20), nullable=True)
     created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False)
 
     # Relacionamentos

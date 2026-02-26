@@ -6,6 +6,7 @@ app = FastAPI()
 
 app.include_router(cliente.router)
 
+
 @app.get("/")
 def read_root():
     return {"message": "API funcionando!"}
