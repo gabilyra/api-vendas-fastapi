@@ -28,6 +28,7 @@ class ClienteUpdate(BaseModel):
     estado: str | None = None
     cep: str | None = None
 
+
 class ClienteResponse(ClienteBase):
     id: int
     created_at: datetime
